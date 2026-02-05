@@ -1,13 +1,24 @@
-name: My First Workflow
+name: Node.js CI Sample
 
-on: push
+on:
+  push:
+  pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Step 1
-        run: echo "Step 1"
 
-      - name: Step 2
-        run: echo "Step 2"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
